@@ -1,0 +1,6 @@
+{
+  "name": "Residencial Jardins - Venda de Apartamento",
+  "description": "Landing page exclusiva para venda de apartamento de alto padrão com fotos, diferenciais, plantas e agendamento de visita.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
