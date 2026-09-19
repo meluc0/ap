@@ -20,8 +20,24 @@ export const APARTMENT_DATA = {
   badge: "Oportunidade Única • Pronto para Morar",
   location: "Alameda dos Jacarandás, Jardins — São Paulo, SP",
   
-  // Link obrigatório do formulário
-  interestFormUrl: "https://forms.gle/gMAT4vTw55JhQfjX6",
+  // Links oficiais de interesse
+  interestFormUrl: "https://forms.gle/3E13784rtQNCeWPc8",
+  formLinks: [
+    {
+      id: "form-1",
+      title: "Agendamento de Visita & Apresentação",
+      description: "Preencha para receber a ficha técnica detalhada e agendar sua visita privativa.",
+      url: "https://forms.gle/3E13784rtQNCeWPc8",
+      tag: "Principal"
+    },
+    {
+      id: "form-2",
+      title: "Proposta de Compra & Simulação de Financiamento",
+      description: "Canal direto para envio de propostas, análise de financiamento bancário e permutas.",
+      url: "https://forms.gle/d4k386dUYqaSZwUP9",
+      tag: "Propostas"
+    }
+  ],
   
   pricing: {
     priceFormatted: "R$ 2.490.000",
@@ -194,8 +210,8 @@ export const APARTMENT_DATA = {
 
   faq: [
     {
-      question: "Como agendar uma visita presencial ao apartamento?",
-      answer: "Você pode clicar no botão 'Tenho Interesse' nesta página para preencher o formulário oficial. Nossa equipe de atendimento entrará em contato em menos de 2 horas para confirmar o melhor horário de acordo com sua conveniência."
+      question: "Como agendar uma visita presencial ou enviar uma proposta?",
+      answer: "Basta clicar em qualquer botão 'Tenho Interesse' nesta página para escolher entre o Formulário de Visita ou o Formulário de Proposta. Você receberá uma confirmação individual do seu interesse diretamente no seu e-mail e nossa consultoria entrará em contato prontamente."
     },
     {
       question: "O imóvel aceita financiamento bancário ou uso do FGTS?",

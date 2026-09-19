@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Building2, Menu, X, PhoneCall } from 'lucide-react';
-import { APARTMENT_DATA } from '../data/apartmentData';
+import { Building2, Menu, X, MapPin } from 'lucide-react';
 import { InterestButton } from './InterestButton';
 
 export const Navbar: React.FC = () => {
@@ -16,12 +15,11 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { label: "O Imóvel", href: "#sobre" },
+    { label: "Apartamentos", href: "#unidades" },
+    { label: "Vila Ema", href: "#unidades" },
+    { label: "Tatuapé", href: "#unidades" },
+    { label: "Mooca", href: "#unidades" },
     { label: "Diferenciais", href: "#diferenciais" },
-    { label: "Galeria", href: "#galeria" },
-    { label: "Planta", href: "#planta" },
-    { label: "Localização", href: "#localizacao" },
-    { label: "Valores", href: "#valores" },
     { label: "Dúvidas", href: "#faq" }
   ];
 
@@ -42,19 +40,19 @@ export const Navbar: React.FC = () => {
           </div>
           <div className="flex flex-col">
             <span className="font-serif-luxury text-base sm:text-lg tracking-wider text-neutral-100 font-semibold group-hover:text-amber-400 transition-colors">
-              JARDINS IMPERIAL
+              APARTAMENTOS SP
             </span>
             <span className="text-[10px] tracking-widest text-neutral-400 uppercase">
-              Residencial de Alto Padrão
+              Vila Ema • Tatuapé • Mooca
             </span>
           </div>
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-neutral-300">
-          {navLinks.map((link) => (
+        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-neutral-300">
+          {navLinks.map((link, idx) => (
             <a
-              key={link.href}
+              key={idx}
               href={link.href}
               className="hover:text-amber-400 transition-colors py-1 relative hover:after:w-full after:w-0 after:h-0.5 after:bg-amber-400 after:absolute after:bottom-0 after:left-0 after:transition-all"
             >
@@ -63,65 +61,47 @@ export const Navbar: React.FC = () => {
           ))}
         </nav>
 
-        {/* Action Button */}
-        <div className="hidden sm:flex items-center gap-4">
+        {/* CTA Button */}
+        <div className="hidden sm:flex items-center gap-3">
           <InterestButton
-            id="nav-interest-button-desktop"
+            id="nav-cta-button"
             variant="header"
             label="Tenho Interesse"
           />
         </div>
 
-        {/* Mobile Hamburger */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <InterestButton
-            id="nav-interest-button-mobile-quick"
-            variant="header"
-            label="Tenho Interesse"
-            icon={false}
-            className="text-xs px-3 py-1.5"
-          />
-          <button
-            id="mobile-menu-toggle"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-lg text-neutral-300 hover:text-white bg-neutral-900 border border-neutral-800"
-            aria-label="Abrir menu de navegação"
-          >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
+        {/* Mobile menu trigger */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="lg:hidden p-2 text-neutral-300 hover:text-white"
+          aria-label="Menu"
+        >
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
 
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div
-          id="mobile-navigation-drawer"
-          className="lg:hidden bg-neutral-950/98 backdrop-blur-xl border-b border-neutral-800 px-6 py-6 space-y-4 animate-in fade-in slide-in-from-top-4"
-        >
-          <div className="flex flex-col space-y-3">
-            {navLinks.map((link) => (
+        <div className="lg:hidden bg-neutral-950/95 border-b border-neutral-800 px-6 py-6 space-y-4">
+          <div className="flex flex-col space-y-3 text-base">
+            {navLinks.map((link, idx) => (
               <a
-                key={link.href}
+                key={idx}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-neutral-200 hover:text-amber-400 text-base py-2 font-medium border-b border-neutral-900"
+                className="text-neutral-300 hover:text-amber-400 font-medium py-1"
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          <div className="pt-4 flex flex-col gap-3">
-            <div className="flex items-center gap-2 text-xs text-neutral-400 pb-1">
-              <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
-              <span>Plantão exclusivo de atendimento</span>
-            </div>
+          <div className="pt-4 border-t border-neutral-800">
             <InterestButton
-              id="mobile-menu-cta"
               variant="gold"
-              label="Tenho Interesse no Apartamento"
-              sublabel="Agende uma visita privativa agora"
-              className="w-full text-center"
+              label="Tenho Interesse"
+              sublabel="Escolha: Vila Ema, Tatuapé ou Mooca"
+              className="w-full"
             />
           </div>
         </div>

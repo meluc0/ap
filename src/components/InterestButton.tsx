@@ -1,14 +1,15 @@
 import React from 'react';
 import { ArrowUpRight, CalendarCheck } from 'lucide-react';
-import { APARTMENT_DATA } from '../data/apartmentData';
+import { useFormModal } from '../context/FormModalContext';
 
 interface InterestButtonProps {
-  variant?: 'primary' | 'gold' | 'outline' | 'header' | 'floating';
+  variant?: 'primary' | 'gold' | 'outline' | 'header' | 'floating' | 'card';
   label?: string;
   sublabel?: string;
   icon?: boolean;
   className?: string;
   id?: string;
+  targetUnitId?: string;
 }
 
 export const InterestButton: React.FC<InterestButtonProps> = ({
@@ -17,8 +18,11 @@ export const InterestButton: React.FC<InterestButtonProps> = ({
   sublabel,
   icon = true,
   className = '',
-  id
+  id,
+  targetUnitId
 }) => {
+  const { openModal } = useFormModal();
+
   const baseClasses = "inline-flex items-center justify-center font-medium transition-all duration-300 rounded-lg cursor-pointer group focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-neutral-950";
 
   let variantClasses = "";
@@ -33,7 +37,10 @@ export const InterestButton: React.FC<InterestButtonProps> = ({
       variantClasses = "bg-amber-500 hover:bg-amber-400 text-neutral-950 px-4 py-2 text-sm font-semibold shadow-md shadow-amber-500/20";
       break;
     case 'floating':
-      variantClasses = "bg-amber-500 hover:bg-amber-400 text-neutral-950 px-5 py-2.5 text-sm font-bold shadow-xl shadow-amber-500/30 animate-pulse hover:animate-none";
+      variantClasses = "bg-amber-500 hover:bg-amber-400 text-neutral-950 px-5 py-2.5 text-sm font-bold shadow-xl shadow-amber-500/30";
+      break;
+    case 'card':
+      variantClasses = "bg-amber-500 hover:bg-amber-400 text-neutral-950 px-4 py-2.5 text-sm font-bold shadow-md shadow-amber-500/20 w-full";
       break;
     case 'primary':
     default:
@@ -41,16 +48,15 @@ export const InterestButton: React.FC<InterestButtonProps> = ({
       break;
   }
 
-  const defaultPadding = (variant === 'header' || variant === 'floating') ? '' : 'px-6 py-3.5';
+  const defaultPadding = (variant === 'header' || variant === 'floating' || variant === 'card') ? '' : 'px-6 py-3.5';
 
   return (
-    <a
+    <button
+      type="button"
       id={id}
-      href={APARTMENT_DATA.interestFormUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+      onClick={() => openModal(targetUnitId)}
       className={`${baseClasses} ${variantClasses} ${defaultPadding} ${className}`}
-      title="Preencher formulário de interesse oficial"
+      title="Escolha o apartamento: Vila Ema, Tatuapé ou Mooca"
     >
       <div className="flex items-center gap-2">
         {variant === 'primary' && <CalendarCheck className="w-4 h-4 text-neutral-900 transition-transform group-hover:scale-110" />}
@@ -66,6 +72,6 @@ export const InterestButton: React.FC<InterestButtonProps> = ({
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         )}
       </div>
-    </a>
+    </button>
   );
 };

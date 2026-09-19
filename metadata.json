@@ -1,6 +1,6 @@
 {
-  "name": "Residencial Jardins - Venda de Apartamento",
-  "description": "Landing page exclusiva para venda de apartamento de alto padrão com fotos, diferenciais, plantas e agendamento de visita.",
+  "name": "Apartamentos à Venda SP — Vila Ema, Tatuapé e Mooca",
+  "description": "Landing page com apresentação de apartamentos prontos para morar na Vila Ema, Tatuapé e Mooca, integrados a formulários Google para agendamento e propostas.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

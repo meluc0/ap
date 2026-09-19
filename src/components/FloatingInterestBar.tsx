@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, X, ChevronUp } from 'lucide-react';
-import { APARTMENT_DATA } from '../data/apartmentData';
-import { InterestButton } from './InterestButton';
+import { Sparkles, MapPin } from 'lucide-react';
+import { useFormModal } from '../context/FormModalContext';
 
 export const FloatingInterestBar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
+  const { openModal } = useFormModal();
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show floating bar after scrolling 400px down
-      if (window.scrollY > 400 && !isDismissed) {
+      // Show bar after scrolling past 300px
+      if (window.scrollY > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -19,58 +18,48 @@ export const FloatingInterestBar: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isDismissed]);
+  }, []);
 
-  if (!isVisible || isDismissed) {
-    return null;
-  }
+  if (!isVisible) return null;
 
   return (
-    <aside
-      id="floating-interest-bar"
-      aria-label="Acesso rápido ao formulário de interesse"
-      className="fixed bottom-0 left-0 right-0 z-40 bg-neutral-950/95 backdrop-blur-xl border-t border-amber-500/30 py-3 px-4 sm:px-6 shadow-[0_-10px_30px_rgba(0,0,0,0.8)] animate-in slide-in-from-bottom duration-300"
+    <div 
+      id="floating-conversion-bar"
+      className="fixed bottom-0 left-0 right-0 z-40 bg-neutral-950/95 backdrop-blur-md border-t border-neutral-800 py-3 px-4 shadow-2xl transition-all duration-300 animate-in slide-in-from-bottom-5"
     >
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
         {/* Info Left */}
         <div className="flex items-center gap-3 text-center sm:text-left">
-          <div className="hidden md:flex w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/30 items-center justify-center text-amber-400 shrink-0">
-            <Sparkles className="w-4 h-4" />
+          <div className="hidden md:flex w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 items-center justify-center text-amber-400 shrink-0">
+            <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <div className="flex items-center gap-2 justify-center sm:justify-start">
-              <span className="font-serif-luxury font-bold text-sm text-white">
-                {APARTMENT_DATA.name}
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-sm text-white font-serif-luxury">
+                Apartamentos Prontos: Vila Ema, Tatuapé e Mooca
               </span>
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-medium">
-                18º Andar
+              <span className="hidden lg:inline-block text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                A partir de R$ 790 mil
               </span>
             </div>
             <p className="text-xs text-neutral-400">
-              168m² privativos • 3 suítes • 3 vagas • <strong className="text-neutral-200">{APARTMENT_DATA.pricing.priceFormatted}</strong>
+              Escolha a unidade desejada para receber o book e agendar visita exclusiva.
             </p>
           </div>
         </div>
 
         {/* Action Right */}
-        <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
-          <InterestButton
-            id="floating-interest-button"
-            variant="floating"
-            label="Tenho Interesse"
-            className="w-full sm:w-auto"
-          />
-
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-center">
           <button
-            onClick={() => setIsDismissed(true)}
-            className="p-1.5 text-neutral-500 hover:text-neutral-300 rounded-lg hover:bg-neutral-900 transition-colors"
-            title="Fechar barra flutuante"
-            aria-label="Fechar"
+            type="button"
+            onClick={() => openModal()}
+            className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-sm shadow-xl shadow-amber-500/25 transition-all cursor-pointer flex items-center justify-center gap-2"
           >
-            <X className="w-4 h-4" />
+            <span>Tenho Interesse</span>
+            <span className="text-xs font-normal opacity-85 hidden sm:inline">(Escolher Bairro)</span>
           </button>
         </div>
       </div>
-    </aside>
+    </div>
   );
 };

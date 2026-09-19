@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, MessageSquare } from 'lucide-react';
-import { APARTMENT_DATA } from '../data/apartmentData';
-import { InterestButton } from './InterestButton';
+import { ChevronDown, HelpCircle } from 'lucide-react';
+import { GENERAL_DATA } from '../data/apartmentUnits';
 
 export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggleFaq = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+  const toggle = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
   };
 
   return (
-    <section id="faq" className="py-20 bg-neutral-950 relative">
+    <section id="faq" className="py-20 lg:py-28 bg-neutral-950/60 border-t border-neutral-900 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="text-center space-y-4 mb-14">
@@ -22,60 +21,51 @@ export const FaqSection: React.FC = () => {
           <h2 className="font-serif-luxury text-3xl sm:text-4xl font-medium text-white tracking-tight">
             Perguntas Frequentes
           </h2>
-          <p className="text-neutral-400 text-base leading-relaxed">
-            Esclarecimentos rápidos para garantir tranquilidade em cada etapa da sua decisão.
+          <p className="text-neutral-400 text-sm sm:text-base">
+            Esclarecimentos sobre visitação, financiamento bancário, confirmação de interesse e segurança.
           </p>
         </div>
 
         {/* Accordion List */}
-        <div className="space-y-4">
-          {APARTMENT_DATA.faq.map((item, idx) => {
+        <div className="space-y-3">
+          {GENERAL_DATA.faq.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="bg-neutral-900/70 border border-neutral-800 rounded-xl overflow-hidden transition-colors"
+                className={`rounded-xl border transition-all duration-200 overflow-hidden ${
+                  isOpen
+                    ? 'bg-neutral-900/90 border-amber-500/40 shadow-lg shadow-amber-500/5'
+                    : 'bg-neutral-900/50 border-neutral-800 hover:border-neutral-700'
+                }`}
               >
                 <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 text-white font-semibold hover:text-amber-400 transition-colors cursor-pointer"
+                  onClick={() => toggle(idx)}
+                  className="w-full px-6 py-4 sm:py-5 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base sm:text-lg">{item.question}</span>
-                  <ChevronDown
-                    className={`w-5 h-5 text-amber-400 shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180' : ''
+                  <span className="font-semibold text-base sm:text-lg text-white">
+                    {item.question}
+                  </span>
+                  <div
+                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                      isOpen
+                        ? 'bg-amber-500 text-neutral-950 rotate-180'
+                        : 'bg-neutral-800 text-neutral-400'
                     }`}
-                  />
+                  >
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
                 </button>
+
                 {isOpen && (
-                  <div className="px-6 pb-5 pt-1 text-sm text-neutral-300 leading-relaxed border-t border-neutral-800/60 animate-in fade-in duration-200">
+                  <div className="px-6 pb-5 pt-1 text-sm sm:text-base text-neutral-300 leading-relaxed border-t border-neutral-800/60 animate-in fade-in duration-200">
                     {item.answer}
                   </div>
                 )}
               </div>
             );
           })}
-        </div>
-
-        {/* Help box */}
-        <div className="mt-10 p-6 rounded-2xl bg-neutral-900 border border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
-              <MessageSquare className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-white font-semibold text-sm">Tem outra pergunta específica?</h4>
-              <p className="text-xs text-neutral-400">Preencha o formulário e receba retorno direto da nossa assessoria.</p>
-            </div>
-          </div>
-          <InterestButton
-            id="faq-interest-cta"
-            variant="gold"
-            label="Tenho Interesse"
-            sublabel="Falar com consultor"
-            className="w-full sm:w-auto"
-          />
         </div>
       </div>
     </section>

@@ -1,8 +1,19 @@
 import React from 'react';
-import { Building2, ArrowUpRight, ShieldCheck, Mail, Phone } from 'lucide-react';
-import { APARTMENT_DATA } from '../data/apartmentData';
+import { 
+  Building2, 
+  ArrowUpRight, 
+  ShieldCheck, 
+  MapPin, 
+  MailCheck, 
+  Phone,
+  FileSpreadsheet
+} from 'lucide-react';
+import { GENERAL_DATA, APARTMENT_UNITS } from '../data/apartmentUnits';
+import { useFormModal } from '../context/FormModalContext';
 
 export const Footer: React.FC = () => {
+  const { openModal } = useFormModal();
+
   return (
     <footer id="main-footer" className="bg-neutral-950 border-t border-neutral-900 pt-16 pb-24 lg:pb-16 text-neutral-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,85 +25,128 @@ export const Footer: React.FC = () => {
                 <Building2 className="w-4 h-4" />
               </div>
               <span className="font-serif-luxury text-base tracking-wider text-neutral-100 font-semibold">
-                JARDINS IMPERIAL
+                OPORTUNIDADES DE APARTAMENTOS SP
               </span>
             </div>
             <p className="text-neutral-400 leading-relaxed max-w-md">
-              Apartamento de altíssimo padrão à venda no bairro dos Jardins, São Paulo. 168m² privativos, 3 suítes, 3 vagas de garagem e condomínio com lazer completo e segurança 24h blindada.
+              Seleção exclusiva de apartamentos prontos para morar em três dos bairros mais cobiçados da Zona Leste e Tradicional de São Paulo: Vila Ema, Tatuapé e Mooca. Todos com documentação regularizada, aceitam financiamento bancário e FGTS.
             </p>
             <div className="flex items-center gap-2 text-neutral-500">
               <ShieldCheck className="w-4 h-4 text-amber-500/80" />
-              <span>CRECI SP: 198.442-J • Intermediação Imobiliária Credenciada</span>
+              <span>{GENERAL_DATA.creci} • Intermediação Imobiliária Credenciada</span>
             </div>
           </div>
 
-          {/* Col 2: Navigation Links */}
+          {/* Col 2: Navigation */}
           <div className="space-y-3">
             <h4 className="font-semibold text-neutral-200 text-sm tracking-wider uppercase">
-              Navegação
+              Apartamentos
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               <li>
-                <a href="#sobre" className="hover:text-amber-400 transition-colors">O Imóvel</a>
+                <button
+                  type="button"
+                  onClick={() => openModal('vila-ema')}
+                  className="hover:text-amber-400 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
+                >
+                  <MapPin className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Vila Ema (84m² • R$ 790k)</span>
+                </button>
               </li>
               <li>
-                <a href="#diferenciais" className="hover:text-amber-400 transition-colors">Diferenciais</a>
+                <button
+                  type="button"
+                  onClick={() => openModal('tatuape')}
+                  className="hover:text-amber-400 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
+                >
+                  <MapPin className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Tatuapé (142m² • R$ 1.85M)</span>
+                </button>
               </li>
               <li>
-                <a href="#galeria" className="hover:text-amber-400 transition-colors">Galeria de Fotos</a>
+                <button
+                  type="button"
+                  onClick={() => openModal('mooca')}
+                  className="hover:text-amber-400 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
+                >
+                  <MapPin className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Mooca (115m² • R$ 1.29M)</span>
+                </button>
+              </li>
+              <li className="pt-2 border-t border-neutral-900">
+                <a href="#diferenciais" className="hover:text-amber-400 transition-colors">Diferenciais dos Imóveis</a>
               </li>
               <li>
-                <a href="#planta" className="hover:text-amber-400 transition-colors">Planta Humanizada</a>
-              </li>
-              <li>
-                <a href="#localizacao" className="hover:text-amber-400 transition-colors">Localização</a>
-              </li>
-              <li>
-                <a href="#valores" className="hover:text-amber-400 transition-colors">Condições & Valores</a>
+                <a href="#faq" className="hover:text-amber-400 transition-colors">Perguntas Frequentes</a>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Direct Lead Link */}
+          {/* Col 3: Direct Forms */}
           <div className="space-y-3">
             <h4 className="font-semibold text-neutral-200 text-sm tracking-wider uppercase">
-              Atendimento Oficial
+              Formulários Oficiais
             </h4>
             <p className="leading-relaxed">
-              Deseja receber a apresentação completa e agendar uma visita presencial?
+              Canais oficiais para envio de interesse e agendamento:
             </p>
-            <a
-              id="footer-forms-link"
-              href={APARTMENT_DATA.interestFormUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold py-1 border-b border-amber-500/40 hover:border-amber-400 transition-all"
-            >
-              <span>Formulário: Tenho Interesse</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-            <p className="text-[11px] text-neutral-500 pt-2">
-              Horário de visitas: Segunda a Sábado das 09h às 18h | Domingo sob consulta prévia.
-            </p>
+            <div className="flex flex-col gap-2 pt-1">
+              <a
+                id="footer-forms-link-vila-ema"
+                href="https://forms.gle/XQjvT1EoakjtAgkv9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold py-1 border-b border-amber-500/40 hover:border-amber-400 transition-all text-left"
+              >
+                <span>1. Formulário Vila Ema</span>
+                <ArrowUpRight className="w-3.5 h-3.5 ml-auto" />
+              </a>
+
+              <a
+                id="footer-forms-link-tatuape"
+                href="https://forms.gle/SaP9bCnnyDNghtaw6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold py-1 border-b border-amber-500/40 hover:border-amber-400 transition-all text-left"
+              >
+                <span>2. Formulário Tatuapé</span>
+                <ArrowUpRight className="w-3.5 h-3.5 ml-auto" />
+              </a>
+
+              <a
+                id="footer-forms-link-mooca"
+                href="https://forms.gle/tQ6Z5rDgkWtXQiyz9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold py-1 border-b border-amber-500/40 hover:border-amber-400 transition-all text-left"
+              >
+                <span>3. Formulário Mooca</span>
+                <ArrowUpRight className="w-3.5 h-3.5 ml-auto" />
+              </a>
+            </div>
+
+            <div className="pt-2 flex items-center gap-1.5 text-[11px] text-neutral-400">
+              <MailCheck className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span>Confirmação automática no e-mail do interessado</span>
+            </div>
           </div>
         </div>
 
-        {/* Legal Disclaimers */}
+        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-neutral-500 text-[11px]">
           <p>
-            © {new Date().getFullYear()} Residencial Jardins Imperial. Todos os direitos reservados. As imagens fotográficas retratam o imóvel real e suas áreas comuns.
+            © {new Date().getFullYear()} Apartamentos à Venda SP. Todos os direitos reservados. Fotos das unidades e áreas comuns reais.
           </p>
-          <div className="flex items-center gap-4">
-            <a href="#faq" className="hover:text-neutral-400">Política de Privacidade</a>
+          <div className="flex flex-wrap items-center gap-3">
+            <a href="#faq" className="hover:text-neutral-400">Política de Privacidade & LGPD</a>
             <span>•</span>
-            <a
-              href={APARTMENT_DATA.interestFormUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-amber-400"
+            <button 
+              type="button" 
+              onClick={() => openModal()}
+              className="text-amber-400 hover:text-amber-300 cursor-pointer underline"
             >
-              Formulário de Interesse (Google Forms)
-            </a>
+              Abrir Janela de Seleção de Formulário
+            </button>
           </div>
         </div>
       </div>
